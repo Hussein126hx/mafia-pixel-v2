@@ -1,11 +1,11 @@
 name: Build Mafia Pixel APK
 
 on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   workflow_dispatch:
-
-permissions:
-  contents: read
-  actions: write
 
 jobs:
   build:
@@ -18,11 +18,17 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
         distribution: 'temurin'
+        java-version: '17'
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
+
+    - name: Generate Gradle Wrapper
+      run: gradle wrapper
+
+    - name: Make gradlew executable
+      run: chmod +x gradlew
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug
