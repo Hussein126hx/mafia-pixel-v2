@@ -32,7 +32,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.8"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
 }
 
@@ -40,10 +40,12 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
-    
-    // استخدام مكتبات Compose المباشرة بدون تعارض الـ BOM
-    implementation("androidx.compose.ui:ui:1.6.2")
-    implementation("androidx.compose.ui:ui-graphics:1.6.2")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.2")
-    implementation("androidx.compose.material3:material3:1.2.0")
+
+    // الاعتماد على BOM الموحد لمنع أي تعارض في مكتبات UI
+    val composeBom = platform("androidx.compose:compose-bom:2023.08.00")
+    implementation(composeBom)
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
 }
